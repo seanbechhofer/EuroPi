@@ -42,7 +42,7 @@ The value from knob 2 is also added to the output, allowing for operation withou
 3. Dial in required offset
 4. Select mode using button 1
 5. Select number of outputs using button 2
-6. Start your clock - when a clock pulse is received, the active output channel will switch.  een.
+6. Start your clock - when a clock pulse is received, the active output channel will switch. Inactive channels are zeroed. 
 
 ## Modes
 
