@@ -40,12 +40,14 @@ VERSION = "1.0"
 
 OFFSET = 5
 
-class Direction():
+
+class Direction:
     FWD = 0
     REV = 1
     RND = 2
-#    PND = 3
+    #    PND = 3
     count = 3
+
 
 class Switcheroo(EuroPiScript):
     def __init__(self):
@@ -66,14 +68,14 @@ class Switcheroo(EuroPiScript):
             # cvs[self.selected].off()
             # Set all outputs to 0
             [cv.off() for cv in cvs]
-            
+
             # Calculate which output to use.
             if self.direction == Direction.FWD:
                 self.selected = (self.selected + 1) % self.outputs
             elif self.direction == Direction.REV:
                 self.selected = (self.selected - 1) % self.outputs
             elif self.direction == Direction.RND:
-                self.selected = randint(0, self.outputs-1)
+                self.selected = randint(0, self.outputs - 1)
             elif self.direction == Direction.PND:
                 new_selected = 0
                 if self.pendulum:
@@ -85,7 +87,7 @@ class Switcheroo(EuroPiScript):
                     new_selected = self.selected - 1
                     if new_selected < 0:
                         new_selected = 0
-                        self.pendulum = True        
+                        self.pendulum = True
 
                 self.selected = new_selected
             # Do we need to now set the value? Or can we rely on update picking this up?
@@ -141,19 +143,19 @@ class Switcheroo(EuroPiScript):
         oled.fill(0)
         oled.text(f"Switcheroo v{VERSION}", 0, 0, 1)
         oled.text("outs:" + str(int(self.outputs)), 0, 8, 1)
-        mode = '---'
+        mode = "---"
         if self.direction == Direction.FWD:
-            mode = 'fwd'
+            mode = "fwd"
         elif self.direction == Direction.REV:
-            mode = 'rev'
+            mode = "rev"
         elif self.direction == Direction.RND:
-            mode = 'rnd'
+            mode = "rnd"
         elif self.direction == Direction.PND:
-            mode = 'pnd'
+            mode = "pnd"
         oled.text("mode:" + mode, 0, 16, 1)
         # Show info about selection
         oled.show()
-            
+
 
 if __name__ == "__main__":
     Switcheroo().main()
