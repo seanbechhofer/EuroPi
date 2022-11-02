@@ -22,6 +22,7 @@ from contrib.radio_scanner import RadioScanner
 from contrib.scope import Scope
 from contrib.smooth_random_voltages import SmoothRandomVoltages
 from contrib.strange_attractor import StrangeAttractor
+from contrib.switcheroo import Switcheroo
 from contrib.turing_machine import EuroPiTuringMachine
 from calibrate import Calibrate
 
@@ -44,6 +45,7 @@ EUROPI_SCRIPT_CLASSES = [
     Scope,
     SmoothRandomVoltages,
     StrangeAttractor,
+    Switcheroo,
     EuroPiTuringMachine,
     Calibrate,
 ]
