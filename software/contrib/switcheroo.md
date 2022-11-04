@@ -25,16 +25,18 @@ https://github.com/Allen-Synthesis/EuroPi
 - knob_1: unused
 - knob_2: Signal offset
 
-- button_1: Short Press: Select operating mode
-- button_2: Short Press: Cycle through numbers of outputs
+- button_1: Short Press: reduce number of outputs. Long Press: Select operating mode
+- button_2: Short Press: increase number of outputs.
 
 - output_n: Mirrored input or zero depending on selection
 
 # Operation
 
-The app reads a signal from the analog input and then pipes the resulting value to the selected output. 
-Value at unselected outputs is zero. 
-The value from knob 2 is also added to the output, allowing for operation without an input value -- for example providing a constant value for triggers/gates. 
+The app reads a signal from the analog input and then pipes the
+resulting value to the selected output. The value at unselected outputs
+is zero. The value from knob 2 is also added to the output, allowing
+for operation without an input value -- for example providing a
+constant value for triggers/gates.
 
 ## Basic Usage
 1. Connect a clock input to the Digital input
@@ -49,8 +51,8 @@ The value from knob 2 is also added to the output, allowing for operation withou
 The examples below assume 4 outputs are active. 
 1. Forward. Outputs change in order e.g. *1, 2, 3, 4, 1, 2, 3, 4, ...*
 2. Reverse. Outputs change in reverse order e.g. *4, 3, 2, 1, 4, 3, 2, 1, ...*
-3. Pendulum. Outputs change back and forth e.g. *1, 2, 3, 4, 3, 2, 1, 2, 3, ...*
-4. Random. Random output selected. 
+3. Random. Random output selected. 
+4. Pendulum. Outputs change back and forth e.g. *1, 2, 3, 4, 3, 2, 1, 2, 3, ...*
 
 # Known bugs / Interesting features
 

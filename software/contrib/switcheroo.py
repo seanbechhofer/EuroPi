@@ -45,8 +45,8 @@ class Direction:
     FWD = 0
     REV = 1
     RND = 2
-    #    PND = 3
-    count = 3
+    PND = 3
+    count = 4
 
 
 class Switcheroo(EuroPiScript):
@@ -57,6 +57,7 @@ class Switcheroo(EuroPiScript):
         self.direction = Direction.FWD
         self.selected = 0
         self.outputs = 3
+        # State of the pendulum mode. True means ascending, false descending. 
         self.pendulum = True
         # Zero everything
         [cv.off() for cv in cvs]
@@ -64,9 +65,8 @@ class Switcheroo(EuroPiScript):
         # Triggered when din goes HIGH.
         @din.handler
         def dinTrigger():
-            # Set selected output to 0
-            # cvs[self.selected].off()
-            # Set all outputs to 0
+            # Set selected output to 0 cvs[self.selected].off() Set
+            # all outputs to 0. This could probably be done better.
             [cv.off() for cv in cvs]
 
             # Calculate which output to use.
@@ -77,19 +77,26 @@ class Switcheroo(EuroPiScript):
             elif self.direction == Direction.RND:
                 self.selected = randint(0, self.outputs - 1)
             elif self.direction == Direction.PND:
-                new_selected = 0
-                if self.pendulum:
-                    new_selected = self.selected + 1
-                    if new_selected > self.outputs:
-                        self.pendulum = False
-                        new_selected = self.outputs - 1
-                else:
-                    new_selected = self.selected - 1
-                    if new_selected < 0:
-                        new_selected = 0
-                        self.pendulum = True
-
-                self.selected = new_selected
+                # If outputs is == 1 then we don't want to do anything as the output will not change. 
+                if self.outputs > 1:
+                    if self.pendulum:
+                        # Forwards
+                        # Are we at the end? 
+                        if self.selected == (self.outputs - 1):
+                            # Turn around
+                            self.pendulum = False
+                            self.selected = self.selected - 1
+                        else:
+                            self.selected = self.selected + 1
+                    else:
+                        # Backwards
+                        # Are we at the beginning?
+                        if self.selected == 0:
+                            # Turn around
+                            self.pendulum = True
+                            self.selected = self.selected + 1
+                        else:
+                            self.selected = self.selected - 1
             # Do we need to now set the value? Or can we rely on update picking this up?
 
         @din.handler_falling
@@ -111,8 +118,8 @@ class Switcheroo(EuroPiScript):
             self.dirty = True
 
         # Triggered when button 2 is released
-        # Short press: add output
-        # Long press: cycle direction
+        # Short press: remove output
+        # Long press: unused
         @b2.handler_falling
         def b2Pressed():
             if ticks_diff(ticks_ms(), b2.last_pressed()) > 300:
