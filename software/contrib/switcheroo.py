@@ -58,7 +58,7 @@ class Switcheroo(EuroPiScript):
         self.selected = 0
         self.outputs = 3
         # State of the pendulum mode. True means ascending, false descending. 
-        self.pendulum = True
+        self.pendulum_forward = True
         # Zero everything
         [cv.off() for cv in cvs]
 
@@ -79,12 +79,12 @@ class Switcheroo(EuroPiScript):
             elif self.direction == Direction.PND:
                 # If outputs is == 1 then we don't want to do anything as the output will not change. 
                 if self.outputs > 1:
-                    if self.pendulum:
+                    if self.pendulum_forward:
                         # Forwards
                         # Are we at the end? 
                         if self.selected == (self.outputs - 1):
                             # Turn around
-                            self.pendulum = False
+                            self.pendulum_forward = False
                             self.selected = self.selected - 1
                         else:
                             self.selected = self.selected + 1
@@ -93,7 +93,7 @@ class Switcheroo(EuroPiScript):
                         # Are we at the beginning?
                         if self.selected == 0:
                             # Turn around
-                            self.pendulum = True
+                            self.pendulum_forward = True
                             self.selected = self.selected + 1
                         else:
                             self.selected = self.selected - 1
